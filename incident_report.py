@@ -38,4 +38,11 @@ with open ("network_incidents.csv", "r", encoding="utf-8") as file:
         print("Ingen data hitades i CSV-filen.")
         exit()
 
+    # Del A: Grundanalys
+    sites = sorted(set(i["sites"] for i in incidents)) # Creates a list of unique sites, set removes duplicates
+    weeks = sorted(set(int(i["week_number"]) for i in incidents)) # Creates a list of unique week numbers
+    total_incidents = len(incidents) # total number of incidents
+    total_cost = sum(i["cost_sek"] for i in incidents) # total cost of all incidents
+
     
+
