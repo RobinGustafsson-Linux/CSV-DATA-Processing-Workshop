@@ -18,4 +18,24 @@ with open ("network_incidents.csv", "r", encoding="utf-8") as file:
             row["affected_users"] =int(row["affected_users"]) if row["affected_users"] else 0
         except: 
             row["affected_users"] = 0
-            
+
+        try:
+            # convert swedish formatted cost
+            cost = row["cost_sek"].replace(" " ,"").replace(",", ".")
+            row["cost_sek"] = float(cost)
+        except:
+            row["cost_sek"] = 0.0
+
+        try: 
+            row["impact_score"] = float(row["impact_score"])
+        except:
+            row["impact_score"] = 0.0
+
+        incidents.append(row)
+
+    # if the list is empty, exit
+    if not incidents:
+        print("Ingen data hitades i CSV-filen.")
+        exit()
+
+    
