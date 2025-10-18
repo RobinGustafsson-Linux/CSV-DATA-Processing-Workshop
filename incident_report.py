@@ -57,3 +57,12 @@ for i in incidents: # Iterate through each incident
         severity_count[sev] += 1 # Increment the count for the corresponding severity level
 
 
+# filter incidents with 100 or more affected users
+high_impact = [i for i in incidents if i["affected_users"] > 100]
+               
+# 5 most costly incidents
+top_cost = sorted(incidents, key=lambda x: x["cost_sek"], reverse=true)[:5] # lambda function sorts by cost in descending order
+
+
+# DEL B: Numerisk analys
+
