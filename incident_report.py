@@ -61,8 +61,27 @@ for i in incidents: # Iterate through each incident
 high_impact = [i for i in incidents if i["affected_users"] > 100]
                
 # 5 most costly incidents
-top_cost = sorted(incidents, key=lambda x: x["cost_sek"], reverse=true)[:5] # lambda function sorts by cost in descending order
+top_cost = sorted(incidents, key=lambda x: x["cost_sek"], reverse=True)[:5] # lambda function sorts by cost in descending order
 
 
 # DEL B: Numerisk analys
 
+# Calculate average resolution time per severity
+avg_resolution = {}
+for sev in severity_count.keys():
+    times = [i["resolution_minutes"] for i in incidents if i ["severity"].lower() == sev and i ["resolution_minutes"] > 0]
+    avg_resolution[sev] = round(mean(times), 1) if times else 0
+
+# Creates summary per site
+site_summary = {}
+for site in sites:
+    site_data = [i for i in incidents if i["site"] == site]
+    site_summary[site] = {
+        "total_incidents": len(site_data),
+        "critical_incidents": sum(1 for i in site_data if i["severity"] == "critical"),
+        "high_incidents": sum(1 for i in site_data if i["severity"] == "high"),
+        "medium_incidents": sum(1 for i in site_data if i["severity"] == "medium"),
+        "low_incidents": sum(1 for i in site_data if i["severity"] == "low"),
+        "avg_resolution_minutes": round(mean(i["resolution_minutes"] for i in site_data if i ["resolution_minutes"] > 0), 1),
+        "total_cost_sek": round(sum(i["cost_sek"] for i  in site_data), 2)
+    }
