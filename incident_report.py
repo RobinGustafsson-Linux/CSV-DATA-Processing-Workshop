@@ -103,3 +103,26 @@ with open("incident_analysis.txt", "w", encoding="utf-8") as report:
     report.write(f"⚠ DYRASTE INCIDENT: {top_cost[0]['cost_sek']:,.2f} SEK ({top_cost[0]['device_hostname']} - {top_cost[0]['category']})\n")
     report.write(f"⚠ {len(high_impact)} incidenter påverkade fler än 100 användare\n\n")
     
+    report.write("INCIDENTS PER SEVERITY\n")
+    report.write("-----------------------\n")
+    for sev, count in severity_count.items():
+        pct = (count / total_incidents * 100)
+        report.write(f"{sev.capitalize():10}: {count:2d} st ({pct:.0f}%) - Genomsnitt: {avg_resolution[sev]} min resolution\n")
+    report.write("\n")
+
+
+    report.write("5 DYRASTE INCIDENTER\n")
+    report.write("--------------------\n")
+    for inc in top_cost:
+        report.write(f"{inc['ticket_id']:12} {inc['device_hostname']:15} {inc['cost_sek']:>10,.2f} SEK - {inc['site']}\n")
+    report.write("\n")
+
+    report.write("INCIDENTS MED >100 PÅVERKADE ANVÄNDARE\n")
+    report.write("---------------------------------------\n")
+    for inc in high_impact:
+        report.write(f"{inc['ticket_id']:12} {inc['device_hostname']:15} {inc['affected_users']:4} användare - {inc['site']}\n")
+    report.write("\n")
+
+    report.write("=" * 80 + "\n")
+    report.write("RAPPORT SLUT\n")
+    report.write("=" * 80 + "\n")
