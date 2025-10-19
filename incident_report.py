@@ -85,3 +85,21 @@ for site in sites:
         "avg_resolution_minutes": round(mean(i["resolution_minutes"] for i in site_data if i ["resolution_minutes"] > 0), 1),
         "total_cost_sek": round(sum(i["cost_sek"] for i  in site_data), 2)
     }
+
+
+# Report generation
+
+with open("incident_analysis.txt", "w", encoding="utf-8") as report:
+    report.write("=" * 80 + "\n")
+    report.write("INCIDENT ANALYSIS - SEPTEMBER 2024\n")
+    report.write("=" * 80 + "\n\n")
+    report.write(f"Analyserad period: {start_date} till {end_date}\n")
+    report.write(f"Totalt antal incidents: {total_incidents} st\n")
+    report.write(f"Total kostnad: {total_cost:,.2f} SEK\n\n")
+
+    report.write("EXECUTIVE SUMMARY\n")
+    report.write("-----------------\n")
+    report.write(f"⚠ KRITISKT: {severity_count['critical']} st kritiska incidenter totalt\n")
+    report.write(f"⚠ DYRASTE INCIDENT: {top_cost[0]['cost_sek']:,.2f} SEK ({top_cost[0]['device_hostname']} - {top_cost[0]['category']})\n")
+    report.write(f"⚠ {len(high_impact)} incidenter påverkade fler än 100 användare\n\n")
+    

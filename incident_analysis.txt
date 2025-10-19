@@ -1,0 +1,14 @@
+================================================================================
+INCIDENT ANALYSIS - SEPTEMBER 2024
+================================================================================
+
+Analyserad period: 2024-09-01 till 2024-09-30
+Totalt antal incidents: 52 st
+Total kostnad: 445,910.10 SEK
+
+EXECUTIVE SUMMARY
+-----------------
+⚠ KRITISKT: 10 st kritiska incidenter totalt
+⚠ DYRASTE INCIDENT: 45,678.90 SEK (SW-ACCESS-03 - hardware)
+⚠ 9 incidenter påverkade fler än 100 användare
+
