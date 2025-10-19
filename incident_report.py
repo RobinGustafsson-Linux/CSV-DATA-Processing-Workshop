@@ -126,3 +126,29 @@ with open("incident_analysis.txt", "w", encoding="utf-8") as report:
     report.write("=" * 80 + "\n")
     report.write("RAPPORT SLUT\n")
     report.write("=" * 80 + "\n")
+
+
+    # Write CSV file, incidents_by_site.csv
+
+with open("incidents_by_site.csv", "w", newline="", encoding="utf-8") as csvfile:
+    fieldnames = [
+        "site",
+        "total_incidents",
+        "critical_incidents",
+        "high_incidents",
+        "medium_incidents",
+        "low_incidents",
+        "avg_resolution_minutes",
+        "total_cost_sek"
+    ]
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    writer.writeheader()
+
+    for site, data in site_summary.items():
+        row = {"site": site}
+        row.update(data)
+        writer.writerow(row)
+
+print("Analys klar! Filer skapade:")
+print(" - incident_analysis.txt")
+print(" - incidents_by_site.csv")
